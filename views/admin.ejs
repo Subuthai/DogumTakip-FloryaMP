@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Paneli</title>
+</head>
+<style>
+  body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f1f1f1;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+  }
+
+  h1, h2 {
+    text-align: center;
+    color: #333;
+    margin-top: 10;
+    border-bottom: 1px solid #bdbdbd;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 400px;
+    margin-top: 20px;
+  }
+
+  form:not(:last-child) {
+    border-bottom: 1px solid #bdbdbd;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+  }
+
+  form select,
+  form input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+  }
+
+  form input[type="text"] {
+    max-width: 100%;
+  }
+
+  form button {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+
+  form button:hover {
+    background-color: #45a049;
+  }
+
+  hr {
+    width: 100%;
+    border: 1px solid #bdbdbd;
+    margin: 20px 0;
+  }
+
+  table {
+    width: 80%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  table th,
+  table td {
+    padding: 10px;
+    text-align: left;
+  }
+
+  table th {
+    background-color: #333;
+    color: #fff;
+  }
+
+  table tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+
+  a {
+    color: #ff5252;
+    text-decoration: none;
+  }
+</style>
+
+<body>
+  <center><h1>Doğum Takip Paneli</h1></center>
+
+  <% if (loggedIn === true) { %>
+    <center><p>Hoş geldiniz.</p></center>
+
+    <h2>Yeni Hasta Ekle</h2>
+    <form action="/admin/addPatient" method="post">
+      <label for="isim">İsim:</label>
+      <input type="text" id="isim" name="isim" required>
+    
+      <label for="soyisim">Soyisim:</label>
+      <input type="text" id="soyisim" name="soyisim" required>
+    
+      <label for="durum">Durum:</label>
+      <select id="durum" name="durum">
+        <option value="Ameliyat Başladı">Ameliyat Başladı</option>
+        <option value="Ameliyat Devam Ediyor">Ameliyat Devam Ediyor</option>
+        <option value="Ameliyat Bitti">Ameliyat Bitti</option>
+      </select>
+    
+      <label for="protokol_no">Protokol No:</label>
+      <input type="text" id="protokol_no" name="protokol_no" required>
+    
+      <label for="doktor">Doktor:</label>
+      <input type="text" id="doktor" name="doktor" required>
+    
+      <button type="submit">Üye Ekle</button>
+    </form><br>
+
+    <h2>Mevcut Hastalar</h2>
+    <ul>
+      <% for (const patient of patients) { %>
+        <li>
+          <strong>İsim:</strong> <%= patient.isim %>,
+          <strong>Soyisim:</strong> <%= patient.soyisim %>,
+          <strong>Durum:</strong> <%= patient.durum %>
+          <form id="updateForm" action="/admin/updatePatient" method="post">
+            <input type="hidden" name="patientId" value="<%= patient.id %>">
+            <br>
+            <label for="newStatus">Yeni Durum:</label>
+            <select id="newStatus" name="newStatus">
+              <option value="Ameliyat Başladı">Ameliyat Başladı</option>
+              <option value="Ameliyat Devam Ediyor">Ameliyat Devam Ediyor</option>
+              <option value="Ameliyat Bitti">Ameliyat Bitti</option>
+            </select>
+            <button type="submit">Durumu Güncelle</button>
+          </form>
+          <form action="/admin/deletePatient" method="post">
+            <input type="hidden" name="patientId" value="<%= patient.id %>">
+            <br>
+            <button type="submit">Hastayı Sil</button>
+          </form><br>
+        </li>
+      <% } %>
+    </ul>
+  <% } else { %>
+    <p>Giriş yapmadınız.</p>
+    <a href="/admin">Giriş yap</a>
+  <% } %>
+  <p>Bu sistem Florya Bilgi Sistemleri, <a href="https://subuthai.xyz">Ata Kemal Yılmaz</a> tarafından yapılmıştır.</p>
+</body>
+</html>

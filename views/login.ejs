@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Girişi</title>
+</head>
+<body>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f1f1f1;
+    }
+
+    h1 {
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    form select,
+    form input[type="text"] {
+      width: 100%;
+      max-width: 400px;
+      padding: 8px;
+      margin-bottom: 10px;
+      box-sizing: border-box;
+    }
+
+    form input[type="text"] {
+      max-width: 200px;
+    }
+
+    form input[type="password"] {
+      width: 100%;
+      max-width: 400px;
+      padding: 8px;
+      margin-bottom: 10px;
+      box-sizing: border-box;
+    }
+
+    form input[type="password"] {
+      max-width: 200px;
+    }
+
+    form button {
+      width: 100%;
+      max-width: 200px;
+      padding: 10px;
+      box-sizing: border-box;
+      background-color: #4caf50;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+    }
+
+    form button:hover {
+      background-color: #45a049;
+    }
+
+    form button {
+      order: 1;
+      margin-top: 10px;
+      max-width: 100px;
+    }
+    </style>
+  <h1>Admin Girişi</h1>
+  <form action="/admin/login" method="post">
+    <label for="username">Kullanıcı Adı:</label>
+    <input type="text" id="username" name="username" required>
+
+    <label for="password">Şifre:</label>
+    <input type="password" id="password" name="password" required>
+
+    <button type="submit">Giriş Yap</button>
+  </form>
+</body>
+</html>
