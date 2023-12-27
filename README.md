@@ -1,10 +1,17 @@
 # Childbirth Surgery Monitoring System
 
-### Childbirth Surgery Monitoring System 
+### Childbirth Surgery Monitoring System Info
 
 - The childbirth surgery monitoring system that I developed for the hospital where I work.
 - Used Node.js, EJS and simple MySQL.
 - It's designed for functionality, not aesthetics.
+
+### Installation
+
+- Unzip the files to the folder.
+- Install the packages with "***npm install***".
+- Modify the index.js file to configure the database section according to your own database.
+- Open a terminal and do "***node .***" or "***node index.js***".
 
 ### Contact me:
 
