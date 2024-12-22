@@ -6,6 +6,17 @@
 - Used Node.js, EJS and simple MySQL.
 - It's designed for functionality, not aesthetics.
 
+### Screenshots
+
+![Screenshot 2024-12-22 162944](https://github.com/user-attachments/assets/75521bb2-06ce-472e-8c14-b002f80841c9)
+
+![Screenshot 2024-12-22 163200](https://github.com/user-attachments/assets/c8979cc0-4af4-49c6-bf65-44bd04608553)
+
+![Screenshot 2024-12-22 163035](https://github.com/user-attachments/assets/d88f175c-e8e5-4596-8c76-61a22d1e4514)
+
+![Screenshot 2024-12-22 163108](https://github.com/user-attachments/assets/3221a9c5-c49e-4619-b748-f4d8b1fd8bc9)
+
+
 ### Installation
 
 - Unzip the files to the folder.
