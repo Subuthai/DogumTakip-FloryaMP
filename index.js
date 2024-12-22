@@ -15,6 +15,8 @@ app.use(session({
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
+app.use(express.static(path.join(__dirname, 'public')));
+
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
@@ -36,7 +38,6 @@ app.get('/', (req, res) => {
     }
 
     const surgeries = results;
-
     res.render('index', { surgeries });
   });
 });
@@ -52,7 +53,6 @@ app.get('/admin', (req, res) => {
       }
 
       const patients = results;
-
       res.render('admin', { loggedIn: req.session.loggedIn, patients });
     });
   } else {
@@ -134,7 +134,6 @@ app.post('/admin/deletePatient', (req, res) => {
 
 app.get('/update-index', (req, res) => {
   const query = 'SELECT * FROM surgeries';
-  
   db.query(query, (err, results) => {
     if (err) {
       console.error('MySQL sorgu hatası:', err);
@@ -146,7 +145,6 @@ app.get('/update-index', (req, res) => {
   });
 });
 
-
 app.listen(port, () => {
-  console.log(`Sunucu localhost:${port} üzerinde çalışıyor.`);
+  console.log(`Sunucu http://localhost:${port} üzerinde çalışıyor.`);
 });

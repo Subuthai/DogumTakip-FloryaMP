@@ -1,169 +1,217 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin Paneli</title>
-</head>
-<style>
-  body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f1f1f1;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-  }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+    <title>Admin Paneli</title>
+    <style>
+      body {
+        font-family: "Roboto", sans-serif;
+        background-color: #f9f9f9;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
 
-  h1, h2 {
-    text-align: center;
-    color: #333;
-    margin-top: 10;
-    border-bottom: 1px solid #bdbdbd;
-    padding-bottom: 10px;
-    margin-bottom: 20px;
-  }
+      h1 {
+        font-size: 2.5rem;
+        color: #333;
+        margin: 20px 0;
+      }
 
-  form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    max-width: 400px;
-    margin-top: 20px;
-  }
+      h2 {
+        font-size: 1.5rem;
+        color: #555;
+        margin-bottom: 10px;
+      }
 
-  form:not(:last-child) {
-    border-bottom: 1px solid #bdbdbd;
-    padding-bottom: 20px;
-    margin-bottom: 20px;
-  }
+      form {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        max-width: 500px;
+        background: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+        box-sizing: border-box;
+      }
 
-  form select,
-  form input[type="text"] {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 10px;
-    box-sizing: border-box;
-  }
+      form label {
+        margin-bottom: 5px;
+        font-weight: bold;
+        color: #444;
+      }
 
-  form input[type="text"] {
-    max-width: 100%;
-  }
+      form input[type="text"],
+      form select {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+        font-size: 1rem;
+      }
 
-  form button {
-    width: 100%;
-    padding: 10px;
-    box-sizing: border-box;
-    background-color: #4caf50;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-    margin-top: 10px;
-  }
+      form button {
+        padding: 12px;
+        font-size: 1rem;
+        font-weight: bold;
+        color: #fff;
+        background-color: #007bff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
 
-  form button:hover {
-    background-color: #45a049;
-  }
+      form button:hover {
+        background-color: #0056b3;
+      }
 
-  hr {
-    width: 100%;
-    border: 1px solid #bdbdbd;
-    margin: 20px 0;
-  }
+      #mevcutHastalarContainer {
+        width: 100%;
+        max-width: 600px;
+        background: #fff;
+        padding: 15px;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        margin-top: 20px;
+      }
 
-  table {
-    width: 80%;
-    margin: 20px auto;
-    border-collapse: collapse;
-    background-color: #fff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
+      #mevcutHastalarContainer h2 {
+        margin: 0;
+        padding: 10px 0;
+        font-size: 1.3rem;
+        color: #007bff;
+        text-align: center;
+        cursor: pointer;
+      }
 
-  table th,
-  table td {
-    padding: 10px;
-    text-align: left;
-  }
+      #mevcutHastalarList {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.4s ease-out;
+      }
 
-  table th {
-    background-color: #333;
-    color: #fff;
-  }
+      #mevcutHastalarList.open {
+        max-height: 5000px;
+        overflow: visible;
+      }
 
-  table tr:nth-child(even) {
-    background-color: #f9f9f9;
-  }
+      ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
 
-  a {
-    color: #ff5252;
-    text-decoration: none;
-  }
-</style>
+      ul li {
+        background: #f9f9f9;
+        margin: 15px 0;
+        padding: 15px;
+        border-left: 5px solid #007bff;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
 
-<body>
-  <center><h1>Doğum Takip Paneli</h1></center>
+      ul li .patient-info p {
+        margin: 5px 0;
+        color: #333;
+      }
 
-  <% if (loggedIn === true) { %>
+      ul li form {
+        margin-top: 10px;
+      }
+
+      ul li form button {
+        margin-top: 10px;
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <center>
+      <h1>İ.A.Ü. VM Medical Park Florya Hastanesi Doğum Takip Paneli</h1>
+    </center>
+    <% if (loggedIn === true) { %>
     <center><p>Hoş geldiniz.</p></center>
-
     <h2>Yeni Hasta Ekle</h2>
     <form action="/admin/addPatient" method="post">
       <label for="isim">İsim:</label>
-      <input type="text" id="isim" name="isim" required>
-    
+      <input type="text" id="isim" name="isim" required />
       <label for="soyisim">Soyisim:</label>
-      <input type="text" id="soyisim" name="soyisim" required>
-    
+      <input type="text" id="soyisim" name="soyisim" required />
       <label for="durum">Durum:</label>
       <select id="durum" name="durum">
         <option value="Ameliyat Başladı">Ameliyat Başladı</option>
         <option value="Ameliyat Devam Ediyor">Ameliyat Devam Ediyor</option>
         <option value="Ameliyat Bitti">Ameliyat Bitti</option>
       </select>
-    
-      <label for="protokol_no">Protokol No:</label>
-      <input type="text" id="protokol_no" name="protokol_no" required>
-    
-      <label for="doktor">Doktor:</label>
-      <input type="text" id="doktor" name="doktor" required>
-    
-      <button type="submit">Üye Ekle</button>
-    </form><br>
 
-    <h2>Mevcut Hastalar</h2>
-    <ul>
-      <% for (const patient of patients) { %>
-        <li>
-          <strong>İsim:</strong> <%= patient.isim %>,
-          <strong>Soyisim:</strong> <%= patient.soyisim %>,
-          <strong>Durum:</strong> <%= patient.durum %>
-          <form id="updateForm" action="/admin/updatePatient" method="post">
-            <input type="hidden" name="patientId" value="<%= patient.id %>">
-            <br>
-            <label for="newStatus">Yeni Durum:</label>
-            <select id="newStatus" name="newStatus">
-              <option value="Ameliyat Başladı">Ameliyat Başladı</option>
-              <option value="Ameliyat Devam Ediyor">Ameliyat Devam Ediyor</option>
-              <option value="Ameliyat Bitti">Ameliyat Bitti</option>
-            </select>
-            <button type="submit">Durumu Güncelle</button>
-          </form>
-          <form action="/admin/deletePatient" method="post">
-            <input type="hidden" name="patientId" value="<%= patient.id %>">
-            <br>
-            <button type="submit">Hastayı Sil</button>
-          </form><br>
-        </li>
-      <% } %>
-    </ul>
-  <% } else { %>
+      <label for="protokol_no">Protokol No:</label>
+      <input type="text" id="protokol_no" name="protokol_no" required />
+
+      <label for="doktor">Doktor:</label>
+      <input type="text" id="doktor" name="doktor" required />
+
+      <button type="submit">Hasta Ekle</button>
+    </form>
+
+    <div id="mevcutHastalarContainer">
+      <h2 id="toggleMevcutHastalar">Mevcut Hastalar</h2>
+      <div id="mevcutHastalarList">
+        <ul>
+          <% for (const patient of patients) { %>
+          <li>
+            <div class="patient-info">
+              <p><strong>İsim:</strong> <%= patient.isim %></p>
+              <p><strong>Soyisim:</strong> <%= patient.soyisim %></p>
+              <p><strong>Protokol No:</strong> <%= patient.protokol_no %></p>
+              <p><strong>Durum:</strong> <%= patient.durum %></p>
+            </div>
+            <form action="/admin/updatePatient" method="post">
+              <input type="hidden" name="patientId" value="<%= patient.id %>" />
+              <label for="newStatus">Yeni Durum:</label>
+              <select id="newStatus" name="newStatus">
+                <option value="Ameliyat Başladı">Ameliyat Başladı</option>
+                <option value="Ameliyat Devam Ediyor">
+                  Ameliyat Devam Ediyor
+                </option>
+                <option value="Ameliyat Bitti">Ameliyat Bitti</option>
+              </select>
+              <button type="submit">Durumu Güncelle</button>
+            </form>
+            <form action="/admin/deletePatient" method="post">
+              <input type="hidden" name="patientId" value="<%= patient.id %>" />
+              <button type="submit">Hastayı Sil</button>
+            </form>
+          </li>
+          <% } %>
+        </ul>
+      </div>
+    </div>
+    <% } else { %>
     <p>Giriş yapmadınız.</p>
     <a href="/admin">Giriş yap</a>
-  <% } %>
-  <p>Bu sistem Florya Bilgi Sistemleri, <a href="https://subuthai.xyz">Ata Kemal Yılmaz</a> tarafından yapılmıştır.</p>
-</body>
+    <% } %>
+    <p>
+      Bu sistem Florya Bilgi Sistemleri,
+      <a href="https://subuthai.xyz">Ata Kemal Yılmaz</a> tarafından
+      yapılmıştır.
+    </p>
+
+    <script>
+      document
+        .getElementById("toggleMevcutHastalar")
+        .addEventListener("click", function () {
+          const list = document.getElementById("mevcutHastalarList");
+          list.classList.toggle("open");
+        });
+    </script>
+  </body>
 </html>
